@@ -1,2 +1,2 @@
-# notes-app
+# social media app
 Full stack notes app using MERN
