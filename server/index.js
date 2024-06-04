@@ -41,4 +41,14 @@ const storage = multer.diskStorage({
 })
 const upload = multer({storage: storage})
 
-console.log(process.env)
+/* ROUTES WITH FILES */
+
+/* MONGOOSE SETUP (use mongoose to make working with MongoDB easier) */
+//default to port 6001 if port not defined in env
+const PORT = process.env.PORT || 6001;
+mongoose
+    .connect(process.env.MONGO_URL) //connect to mongo db
+    .then(() => {
+        app.listen(PORT, () => console.log(`Server Port: ${PORT}`)); //listen backend port when connected to db
+    })
+    .catch((err) => console.log(`${err} did not connect`)) //notify error if there is one
