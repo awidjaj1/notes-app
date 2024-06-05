@@ -7,6 +7,7 @@ import multer from "multer";
 import helmet from "helmet";
 import morgan from "morgan";
 import path from "path";
+import {register} from "./controllers/auth.js";
 
 
 /* CONFIGURATIONS */
@@ -29,6 +30,7 @@ app.use(cors());
 app.use("/assets", express.static(path.join(__dirname, 'public/assets')));
 
 /* FILE STORAGE CONFIGURATIONS (for file uploads) */
+// store files locally on disk
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         //store uploaded files in public/assets
@@ -42,6 +44,10 @@ const storage = multer.diskStorage({
 const upload = multer({storage: storage})
 
 /* ROUTES WITH FILES */
+//parse multipart/form-data in request (extracts the file from the picture field of the form)
+//then stores the file in the storage and attaches its info to req.file in register cb
+//rest of form data is in the req.body
+app.post("/auth/register", upload.single("picture"), register);
 
 /* MONGOOSE SETUP (use mongoose to make working with MongoDB easier) */
 //default to port 6001 if port not defined in env
