@@ -12,6 +12,9 @@ import postRoutes from "./routes/posts.js";
 import {register} from "./controllers/auth.js";
 import {createPost} from "./controllers/posts.js";
 import {verifyToken} from "./middleware/auth.js";
+import User from "./models/User.js";
+import Post from "./models/Post.js";
+import {users, posts} from "./data/index.js";
 
 
 /* CONFIGURATIONS */
@@ -64,8 +67,15 @@ app.use("/posts", postRoutes);
 //default to port 6001 if port not defined in env
 const PORT = process.env.PORT || 6001;
 mongoose
-    .connect(process.env.MONGO_URL) //connect to mongo db
+    .connect(process.env.MONGO_URL,
+        {dbName: 'SocialMediaApp'}
+    ) //connect to mongo db
     .then(() => {
         app.listen(PORT, () => console.log(`Server Port: ${PORT}`)); //listen backend port when connected to db
+
+        // add dummy data to our database
+        // COMMENT OUT AFTER DONE
+        // User.insertMany(users);
+        // Post.insertMany(posts);
     })
     .catch((err) => console.log(`${err} did not connect`)) //notify error if there is one
