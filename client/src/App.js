@@ -11,13 +11,14 @@ import { themeSettings } from 'theme';
 function App() {
   // keep track of mode using useSelector hook
   const mode = useSelector((state) => state.mode);
-  // update theme when mode changes
+  // update theme when mode changes (memoize the light and dark theme results)
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
 
   return (
     <div className="app">
       <BrowserRouter>
         <ThemeProvider theme={theme}>
+          {/* Reset browser css and use baseline css */}
           <CssBaseline />
           <Routes>
             <Route path="/" element={<LoginPage />} />

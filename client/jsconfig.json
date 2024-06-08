@@ -1,8 +1,6 @@
 {
-    // make non-module imports resolve to src
     "compilerOptions": {
         "baseUrl": "src"
     },
-    // define project scope for editor
     "include": ["src"]
 }
