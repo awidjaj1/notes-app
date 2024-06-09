@@ -37,6 +37,7 @@ const Navbar = () => {
 
     // use theme defined by App.js
     const theme = useTheme();
+    // console.log(theme);
     const neutralLight = theme.palette.neutral.light;
     const dark = theme.palette.neutral.dark;
     const background = theme.palette.background.default;
