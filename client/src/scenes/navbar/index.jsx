@@ -44,7 +44,7 @@ const Navbar = () => {
     const primaryLight = theme.palette.primary.light;
     const alt = theme.palette.background.alt;
 
-    const fullName = user === null? "fake person": `${user.firstName} ${user.lastName}`;
+    const fullName = `${user.firstName} ${user.lastName}`;
 
     // provide padding and color props to mui FlexBetween custom component
     // only works for box, o.w. use sx prop
@@ -104,9 +104,10 @@ const Navbar = () => {
                                 input={<InputBase />}
                             >
                                 <MenuItem value={fullName}>
-                                    <Typography>{fullName}</Typography>
+                                    {fullName}
                                 </MenuItem>
-                                <MenuItem onClick={() => dispatch(setLogout())}>Log Out</MenuItem>
+                                <MenuItem onClick={() =>
+                                    dispatch(setLogout())}>Log Out</MenuItem>
                             </Select>
                         </FormControl>
                     </FlexBetween>
@@ -175,7 +176,8 @@ const Navbar = () => {
                                 <MenuItem value={fullName}>
                                     <Typography>{fullName}</Typography>
                                 </MenuItem>
-                                <MenuItem onClick={() => dispatch(setLogout())}>Log Out</MenuItem>
+                                <MenuItem onClick={() =>
+                                    dispatch(setLogout())}>Log Out</MenuItem>
                             </Select>
                         </FormControl>
                     </FlexBetween>
