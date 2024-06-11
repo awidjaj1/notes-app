@@ -29,9 +29,12 @@ app.use(express.json({limit: "30mb"}));
 app.use(express.urlencoded({limit: "30mb", extended: true}));
 //sets HTTP headers in resp for security
 app.use(helmet());
+//allow frontend to embed cross origin resources (server's resources) in the html? idk
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 //for logging
 app.use(morgan("common"));
 //to access cross origin resources -- resources from a different origin
+//i.e. allow frontend to access backend's api
 app.use(cors());
 //store static files in public/assets and create a the virtual path prefix /assets
 app.use("/assets", express.static(path.join(__dirname, 'public/assets')));

@@ -1,6 +1,7 @@
 import { Box } from "@mui/material";
 
 const UserImage = ({image, size="60px"}) => {
+    // console.log(`http://localhost:3001/assets/${image}`);
     return (
         <Box width={size} height={size}>
             <img 

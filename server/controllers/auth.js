@@ -68,6 +68,7 @@ export const login = async (req, res) => {
         const token = jwt.sign({id: user._id}, process.env.JWT_SECRET);
         // don't send the password back to the user
         delete user.password;
+        // console.log(token);
         res.status(200).json({token, user});
 
     } catch(err){
