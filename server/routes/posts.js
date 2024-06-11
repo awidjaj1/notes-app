@@ -7,7 +7,7 @@ const router = express.Router();
 /* READ */
 router.get("/", verifyToken, getFeedPosts);
 // TODO: maybe change the uri to just /:userId
-router.get("/:userId/posts", verifyToken, getUserPosts);
+router.get("/:userId", verifyToken, getUserPosts);
 
 /* UPDATE */
 // TODO: maybe change the uri to just /:id ?
