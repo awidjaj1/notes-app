@@ -20,16 +20,16 @@ export const getUserFriends = async (req, res) => {
         const user = await User.findById(id);
 
         // store all the promises as one promise and await
-        const friends = await Promise.all(
-            user.friends.map((id) => user.findById(id))
-        );
-        const formattedFriends = friends.map(
-            ({_id, firstName, lastName, occupation, location, picturePath}) => {
-                // destructure and return only what client needs
-                return {_id, firstName, lastName, occupation, location, picturePath};
-            }
-        );
-        res.status(200).json(formattedFriends);
+        // const friends = await Promise.all(
+        //     user.friends.map((id) => User.findById(id))
+        // );
+        // const formattedFriends = friends.map(
+        //     ({_id, firstName, lastName, occupation, location, picturePath}) => {
+        //         // destructure and return only what client needs
+        //         return {_id, firstName, lastName, occupation, location, picturePath};
+        //     }
+        // );
+        res.status(200).json(user.friends); //.json(formattedFriends);
     } catch(err){
         //set status to 404: server cannot find requested resource
         res.status(404).json({message: err.message});
@@ -57,18 +57,18 @@ export const addRemoveFriend = async (req, res) => {
         await user.save();
         await friend.save();
 
-        const friends = await Promise.all(
-            user.friends.map((id) => user.findById(id))
-        );
-        const formattedFriends = friends.map(
-            ({_id, firstName, lastName, occupation, location, picturePath}) => {
-                // destructure and return only what client needs
-                return {_id, firstName, lastName, occupation, location, picturePath};
-            }
-        );
+        // const friends = await Promise.all(
+        //     user.friends.map((id) => User.findById(id))
+        // );
+        // const formattedFriends = friends.map(
+        //     ({_id, firstName, lastName, occupation, location, picturePath}) => {
+        //         // destructure and return only what client needs
+        //         return {_id, firstName, lastName, occupation, location, picturePath};
+        //     }
+        // );
 
         // send new friends list
-        res.status(200).json(formattedFriends);
+        res.status(200).json(user.friends) //(formattedFriends);
     } catch(err){
         //set status to 404: server cannot find requested resource
         res.status(404).json({message: err.message});

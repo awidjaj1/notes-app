@@ -4,9 +4,11 @@ import jwt from 'jsonwebtoken';
 export const verifyToken = async (req, res, next) => {
     try {
         let token = req.header('Authorization');
+        // console.log(token);
         // status code 403: refuse to authorize the client
         if(!token) return res.status(403).send("Access Denied");
-        if(token.startsWith("Bearer: ")) token = token.slice(7, token.length).trimLeft();
+        if(token.startsWith("Bearer ")) token = token.slice(7, token.length).trimLeft();
+        // console.log(token);
 
         // if verify works (i.e. token was not tampered with), it returns the payload
         // else it throws an error

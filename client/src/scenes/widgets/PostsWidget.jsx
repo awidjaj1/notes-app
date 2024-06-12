@@ -25,14 +25,17 @@ const PostsWidget = ({userId, isProfile = false}) => {
         const data = await response.json();
         dispatch(setPosts({posts: data}));
     };
-
+    // getUserPosts();
+    // console.log(posts);
     useEffect(() => {
+        // console.log("IM HERE");
         if (isProfile){
             getUserPosts();
         } else{
             getPosts();
         }
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
     // since we're returning a list of components make sure to add keys to them
     // so react only re-renders the parts that of the list that are changed
     return (
@@ -49,7 +52,7 @@ const PostsWidget = ({userId, isProfile = false}) => {
                     userPicturePath,
                     likes,
                     comments
-                }) => {
+                }) => (
                     <PostWidget 
                         key={_id}
                         postId={_id}
@@ -62,7 +65,7 @@ const PostsWidget = ({userId, isProfile = false}) => {
                         likes={likes}
                         comments={comments}
                     />
-                }
+                )
             )}
         </>
     )

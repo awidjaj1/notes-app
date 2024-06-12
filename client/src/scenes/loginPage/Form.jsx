@@ -95,6 +95,7 @@ const Form = () => {
         const loggedIn = await loggedInResponse.json();
         onSubmitProps.resetForm();
         if (loggedIn){
+            // console.log(loggedIn.user);
             // dispatch the redux login event
             dispatch(
                 setLogin({
