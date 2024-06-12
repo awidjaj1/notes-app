@@ -19,7 +19,7 @@ const Friend = ({friendId, name, subtitle, userPicturePath}) => {
     const main = palette.neutral.main;
     const medium = palette.neutral.medium;
     
-    const isFriend = friends.find((id) => id === friendId);
+    const isFriend = friends.find((friend) => friend._id === friendId);
 
     const patchFriend = async () => {
         // make call to add or remove friend depending on current friend status
@@ -32,6 +32,7 @@ const Friend = ({friendId, name, subtitle, userPicturePath}) => {
             }
         });
         const data = await response.json();
+        // note we format the data as a list of friend objects which contain meta data such as id
         dispatch(setFriends({friends: data}));
     };
 
