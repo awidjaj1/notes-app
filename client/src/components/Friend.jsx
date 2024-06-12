@@ -19,9 +19,10 @@ const Friend = ({friendId, name, subtitle, userPicturePath}) => {
     const main = palette.neutral.main;
     const medium = palette.neutral.medium;
     
-    const isFriend = friends.find((friend) => friend._id === friendId);
+    const isFriend = friends.find((id) => id === friendId);
 
     const patchFriend = async () => {
+        // make call to add or remove friend depending on current friend status
         const response = await fetch(`http://localhost:3001/users/${_id}/${friendId}`,
         {
             method: "PATCH",
@@ -41,7 +42,7 @@ const Friend = ({friendId, name, subtitle, userPicturePath}) => {
                 <Box
                     onClick={() => {
                         navigate(`/profile/${friendId}`);
-                        //navigate(0); maybe need this
+                        //navigate(0); maybe need this https://stackoverflow.com/questions/68825965/react-router-v6-usenavigate-doesnt-navigate-if-replacing-last-element-in-path
                     }}
                 >
                     <Typography
