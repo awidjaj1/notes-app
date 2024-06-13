@@ -5,6 +5,9 @@ import User from "../models/User.js";
 export const createPost = async (req, res) => {
     try {
         const {userId, description, picturePath} = req.body;
+        if (userId !== req.user.id){
+            throw new Error("JWT doesn't match user!");
+        }
         const user = await User.findById(userId);
         const newPost = new Post({
             userId,
@@ -42,6 +45,9 @@ export const getFeedPosts = async (req, res) => {
 export const getUserPosts = async (req, res) => {
     try {
         const {userId} = req.params;
+        // if (userId !== req.user.id){
+        //     throw new Error("JWT doesn't match user!!");
+        // }
         const posts = await Post.find({userId});
         res.status(200).json(posts);
     } catch(err){
@@ -54,6 +60,9 @@ export const likePost = async (req, res) => {
     try {
         const {id} = req.params;
         const {userId} = req.body;
+        if (userId !== req.user.id){
+            throw new Error("JWT doesn't match user!!!");
+        }
         const post = await Post.findById(id);
         // undefined if user didn't like the post, o.w. true
         const isLiked = post.likes.get(userId);

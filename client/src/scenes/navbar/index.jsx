@@ -174,7 +174,7 @@ const Navbar = () => {
                                 input={<InputBase />}
                             >
                                 <MenuItem value={fullName}>
-                                    <Typography>{fullName}</Typography>
+                                    {fullName}
                                 </MenuItem>
                                 <MenuItem onClick={() =>
                                     dispatch(setLogout())}>Log Out</MenuItem>

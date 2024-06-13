@@ -1,12 +1,14 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPosts } from "state";
+import { Box, useMediaQuery } from "@mui/material";
 import PostWidget from "./PostWidget";
 
 const PostsWidget = ({userId, isProfile = false}) => {
     const dispatch = useDispatch();
     const posts = useSelector((state) => state.posts);
     const token = useSelector((state) => state.token);
+    const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
 
     const getPosts = async () => {
         const response = await fetch("http://localhost:3001/posts", {
@@ -26,7 +28,6 @@ const PostsWidget = ({userId, isProfile = false}) => {
         dispatch(setPosts({posts: data}));
     };
     // getUserPosts();
-    // console.log(posts);
     useEffect(() => {
         // console.log("IM HERE");
         if (isProfile){
@@ -35,11 +36,12 @@ const PostsWidget = ({userId, isProfile = false}) => {
             getPosts();
         }
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
     // since we're returning a list of components make sure to add keys to them
     // so react only re-renders the parts that of the list that are changed
     return (
-        <>
+        <Box sx={{
+            "& > .MuiBox-root:first-of-type": {m: isNonMobileScreens? "0rem 0": "2rem 0"}
+        }}>
             {posts.map(
                 ({
                     _id,
@@ -67,7 +69,7 @@ const PostsWidget = ({userId, isProfile = false}) => {
                     />
                 )
             )}
-        </>
+        </Box>
     )
 };
 

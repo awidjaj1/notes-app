@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-// middleware to authorize a user
+// middleware to authorize a user to make certain api calls
 export const verifyToken = async (req, res, next) => {
     try {
         let token = req.header('Authorization');
@@ -14,7 +14,9 @@ export const verifyToken = async (req, res, next) => {
         // else it throws an error
         // console.log(token);
         const verified = jwt.verify(token, process.env.JWT_SECRET);
-        // set the user in the req object, which can be used by following middleware
+        // set the user in the req object, which can be used by following middleware to ensure
+        // that the client making an api call is allowed to do so
+        // console.log(verified);
         req.user = verified;
         next();
     } catch(err){

@@ -66,10 +66,46 @@ export const login = async (req, res) => {
         // we don't need to share the secret key as only the server will
         // need to verify the signatures
         const token = jwt.sign({id: user._id}, process.env.JWT_SECRET);
-        // don't send the password back to the user
-        delete user.password;
+        
+        // store all the promises as one promise and await
+        const friends = await Promise.all(
+            user.friends.map((id) => User.findById(id))
+        );
+        const formattedFriends = friends.map(
+            ({_id, firstName, lastName, occupation, location, picturePath}) => {
+                // destructure and return only what client needs
+                return {_id, firstName, lastName, occupation, location, picturePath};
+            }
+        );
+        
+
+        // this is what we store in local storage
+        const formattedUser = (
+            ({
+                _id, 
+                firstName, 
+                lastName, 
+                email,
+                picturePath,
+                location,
+                occupation,
+                viewedProfile,
+                impressions,
+            }) => ({
+                _id, 
+                firstName, 
+                lastName, 
+                email,
+                picturePath,
+                friends: formattedFriends,
+                location,
+                occupation,
+                viewedProfile,
+                impressions
+            }))(user);
         // console.log(token);
-        res.status(200).json({token, user});
+        // console.log(formattedUser);
+        res.status(200).json({token, user: formattedUser});
 
     } catch(err){
         res.status(500).json({error: err.message})

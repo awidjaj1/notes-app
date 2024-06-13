@@ -77,8 +77,10 @@ mongoose
         app.listen(PORT, () => console.log(`Server Port: ${PORT}`)); //listen backend port when connected to db
 
         // add dummy data to our database
-        // COMMENT OUT AFTER DONE
-        // User.insertMany(users);
-        // Post.insertMany(posts);
+        if (!User.findOne({email: "aaaaaaa@gmail.com"})){
+            console.log("Inserting dummy data into your database");
+            User.insertMany(users);
+            Post.insertMany(posts);
+        }
     })
     .catch((err) => console.log(`${err} did not connect`)) //notify error if there is one

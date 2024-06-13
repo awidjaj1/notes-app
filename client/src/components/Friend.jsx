@@ -19,7 +19,7 @@ const Friend = ({friendId, name, subtitle, userPicturePath}) => {
     const main = palette.neutral.main;
     const medium = palette.neutral.medium;
     
-    const isFriend = Boolean(friends.find((id) => id === friendId));
+    const isFriend = Boolean(friends.find((friend) => friend._id === friendId));
     // console.log(friendId);
     // console.log(friends);
 
@@ -34,7 +34,6 @@ const Friend = ({friendId, name, subtitle, userPicturePath}) => {
             }
         });
         const data = await response.json();
-        // console.log(data);
         // note we format the data as a list of friend objects which contain meta data such as id
         dispatch(setFriends({friends: data}));
     };
@@ -43,12 +42,7 @@ const Friend = ({friendId, name, subtitle, userPicturePath}) => {
         <FlexBetween>
             <FlexBetween gap="1rem">
                 <UserImage image={userPicturePath} size="55px"/>
-                <Box
-                    onClick={() => {
-                        navigate(`/profile/${friendId}`);
-                        //navigate(0); maybe need this https://stackoverflow.com/questions/68825965/react-router-v6-usenavigate-doesnt-navigate-if-replacing-last-element-in-path
-                    }}
-                >
+                <Box>
                     <Typography
                         color={main}
                         variant="h5"
@@ -59,6 +53,10 @@ const Friend = ({friendId, name, subtitle, userPicturePath}) => {
                                 cursor: "pointer"
                             }
                         }}
+                        onClick={() => {
+                            navigate(`/profile/${friendId}`);
+                            //navigate(0); maybe need this https://stackoverflow.com/questions/68825965/react-router-v6-usenavigate-doesnt-navigate-if-replacing-last-element-in-path
+                        }}
                     >
                         {name}
                     </Typography>
@@ -67,16 +65,18 @@ const Friend = ({friendId, name, subtitle, userPicturePath}) => {
                     </Typography>
                 </Box>
             </FlexBetween>
-            <IconButton
-                onClick={() => patchFriend()}
-                sx={{backgroundColor: primaryLight, p:"0.6rem"}}
-            >
-                {isFriend? (
-                    <PersonRemoveOutlined sx={{ color: primaryDark}} />
-                ): (
-                    <PersonAddOutlined sx={{color: primaryDark}} />
-                )}
-            </IconButton>
+            {(_id !== friendId &&
+                <IconButton
+                    onClick={() => patchFriend()}
+                    sx={{backgroundColor: primaryLight, p:"0.6rem"}}
+                >
+                    {isFriend? (
+                        <PersonRemoveOutlined sx={{ color: primaryDark}} />
+                    ): (
+                        <PersonAddOutlined sx={{color: primaryDark}} />
+                    )}
+                </IconButton>
+            )}
         </FlexBetween>
     )
 };
