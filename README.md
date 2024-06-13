@@ -11,4 +11,4 @@ This project is not deployed. To run it, in the terminal write "npm run start" i
 This project has implemented light and dark mode themes, persisted login session via JSON web tokens, reactive web design, database storage for Users and Posts, RESTful API endpoints, and more.
 
 ## Technologies used?
-MongoDB, Express, React, NodeJs.
+MongoDB, Express, React, NodeJs, MUI, 
