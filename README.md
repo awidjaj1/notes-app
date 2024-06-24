@@ -1,6 +1,9 @@
 # social media app
 Full stack notes app using MERN.
 
+## Example
+Check /screenshots to see examples of how the website looks/works.
+
 ## Within /server
 Download dependencies using package.json and create .env file to replicate (follow the .env.example format).
 
