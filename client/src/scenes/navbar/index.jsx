@@ -141,7 +141,7 @@ const Navbar = () => {
                         </Box>
 
                         {/* MENU ITEMS */}
-                        <FlexBetween display="flex" flexDirection="column" justifyContent="center" alightItems="center" gap="3rem">
+                        <FlexBetween display="flex" flexDirection="column" justifyContent="center" alignItems="center" gap="3rem">
                         <IconButton 
                             onClick={() => dispatch(setMode())}
                             sx={{fontSize: "25px"}}
